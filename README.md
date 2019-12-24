@@ -1,1 +1,1 @@
-#Api_rest - Api rest for obtain information about a domane
+#Api_rest - Api rest for obtain information about a domain
