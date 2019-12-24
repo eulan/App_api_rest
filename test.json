@@ -1,0 +1,26 @@
+{
+  "host": "truora.com",
+  "port": 443,
+  "protocol": "http",
+  "isPublic": false,
+  "status": "IN_PROGRESS",
+  "startTime": 1577169896031,
+  "engineVersion": "1.36.3",
+  "criteriaVersion": "2009q",
+  "endpoints": [
+    {
+      "ipAddress": "34.193.204.92",
+      "serverName": "redirect1.proxy-ssl.webflow.com",
+      "statusMessage": "In progress",
+      "statusDetails": "BUILDING_TRUST_PATHS",
+      "statusDetailsMessage": "Building trust paths",
+      "delegation": 1
+    },
+    {
+      "ipAddress": "34.193.69.252",
+      "serverName": "redirect2.proxy-ssl.webflow.com",
+      "statusMessage": "Pending",
+      "delegation": 1
+    }
+  ]
+}
