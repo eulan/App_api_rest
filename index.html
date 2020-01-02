@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>App web</title>
+  </head>
+  <body>
+
+    <div class="bg-dark text-white text-center card-body w-100 rounded-pill">Application for consulting domains</div>
+    <br>
+    <div id="app" class="text-center">
+      <input v-model = "domain" placeholder="example.com">
+      <br>
+      <button class="btn btn-danger w-100" @click="traer()">Consult</button>
+      <br>
+     
+      <img :src="logo" class="border border-primary rounded-circle">
+      <h4 v-if="see">{{title}}</h4>
+      <h5 v-if="see">servers_changed: {{servers_changed}}</h5>
+      <h5 v-if="see">ssl_grade: {{ssl_grade}}</h5>
+      <h5 v-if="see">previous_ssl_grade: {{previous_ssl_grade}}</h5>
+      
+      <br>
+      <ul>
+        <li class="d-block p-2 bg-dark text-white rounded-pill border border-warning" v-for="endpoint in endpoints">
+          Ip_Address: {{ endpoint.ipAddress}}<br/>Server_Name: {{ endpoint.serverName}}
+          <br/> Grade: {{endpoint.grade}} <br/> Organization Name: {{endpoint.orgName}}
+          <br/>Country: {{endpoint.country}}
+        </li>
+      </ul>
+    </div>
+
+    <div id= "app2" class="text-center">
+      <h4 class="d-block p-2 bg-dark text-white rounded-pill border border-warning">Data consulted</h4>
+      
+      <ol>
+        <li class="d-block p-2 bg-dark text-white rounded-pill border border-warning" v-for="item in items">
+          domain: {{item.domain}}</br>
+          <button class="btn btn-danger w-5" @click = "watching()">Info</button>
+          <p v-if = "watch">{{item.info}}</p>
+        </li>
+      </ol>
+    </div>
+    
+    <script src="js/app2.js"></script>
+    <script src="js/app.js"></script>
+    
+
+
+  </body>
+</html>
