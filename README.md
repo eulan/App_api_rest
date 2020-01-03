@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #My first Api restful
 
 components:
@@ -37,3 +38,6 @@ and all right!! watch at the browser, and put por instance:
 	"http://localhost:8000/=example.com"
 
 3. Finally in other port open "index.html", and experiment with my app.
+=======
+# App_api_rest
+>>>>>>> 7ab50243970bad0744dcf16e3658a3a08e2fd502
