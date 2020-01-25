@@ -20,10 +20,10 @@ Compiling:
 	$ cockroach start-single-node --insecure --store=json-test --listen-addr=localhost:26257 --http-addr=localhost:8080 --background
 	$ cockroach sql --insecure
 	
-	>CREATE USER IF NOT EXISTS maxroach;
-	>CREATE DATABASE bank;
-	>GRANT ALL ON DATABASE bank TO maxroach;
-	> \q
+	\>CREATE USER IF NOT EXISTS maxroach;
+	\>CREATE DATABASE bank;
+	\>GRANT ALL ON DATABASE bank TO maxroach;
+	\> \q
 
 For entering to database from terminal:
 
