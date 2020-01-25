@@ -18,7 +18,7 @@ Compiling:
 1. Creating one-clustring of one node:
 
 	$ cockroach start-single-node --insecure --store=json-test --listen-addr=localhost:26257 --http-addr=localhost:8080 --background
-	$ cockroach sql --certs-dir=certs
+	$ cockroach sql --insecure
 	
 	>CREATE USER IF NOT EXISTS maxroach;
 	>CREATE DATABASE bank;

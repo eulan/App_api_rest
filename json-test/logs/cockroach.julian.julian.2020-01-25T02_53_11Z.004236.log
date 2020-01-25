@@ -1,0 +1,5 @@
+I200125 02:53:11.951263 1 util/log/clog.go:1196  [config] file created at: 2020/01/25 02:53:11
+I200125 02:53:11.951263 1 util/log/clog.go:1196  [config] running on machine: julian
+I200125 02:53:11.951263 1 util/log/clog.go:1196  [config] binary: CockroachDB CCL v19.2.2 (x86_64-unknown-linux-gnu, built 2019/12/11 01:33:43, go1.12.12)
+I200125 02:53:11.951263 1 util/log/clog.go:1196  [config] arguments: [cockroach start-single-node --insecure --store=json-test --listen-addr=localhost:26257 --http-addr=localhost:8080]
+I200125 02:53:11.951263 1 util/log/clog.go:1196  line format: [IWEF]yymmdd hh:mm:ss.uuuuuu goid file:line msg utf8=✓

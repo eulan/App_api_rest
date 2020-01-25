@@ -1,2 +1,0 @@
-#!/bin/bash
-cockroach start-single-node --insecure --store=json-test --listen-addr=localhost:26257

@@ -67,7 +67,7 @@ func Data_obtain(domain string, url string, server_data *Server_data){
 
 	if resp.StatusCode == 200 {
 		server_data.IsDown = false
-		html_data_obtainer(string("https://"+domain), server_data)	
+		html_data_obtainer(string("https://"+domain), server_data, domain)	
 	}else{server_data.IsDown = true}
 
 	db, err := sql.Open("postgres", "postgresql://maxroach@localhost:26257/bank?sslmode=disable")
@@ -195,7 +195,7 @@ func domain_data_obtainer (server_data *Server_data){
 
 }
 
-func html_data_obtainer(url string, server_data *Server_data){
+func html_data_obtainer(url string, server_data *Server_data, domain string){
 
 	resp, err := http.Get(url)
 	if err != nil{
@@ -206,25 +206,58 @@ func html_data_obtainer(url string, server_data *Server_data){
 
 
 	html, _ := ioutil.ReadAll(resp.Body)
-        read := bytes.NewReader(html)
+    read := bytes.NewReader(html)
 	scanner := bufio.NewScanner(read)
-
+	cum := 0
 	var j int
 	for scanner.Scan(){
-		j++ 
+		j++
 		linea := scanner.Text()
+		match, _:=regexp.MatchString("<title.*?>",linea)
 
-		if s.Contains(linea,"<meta charset=\"utf-8\"/>"){    
+		if match && cum==0{
 			re := regexp.MustCompile(`<title.*?>(.*)</title>`)
 			submatchall := re.FindAllStringSubmatch(linea, -1)
 			server_data.Title = submatchall[len(submatchall)-1][1]
-			re = regexp.MustCompile(`<link href=[\"'](.+?)[\"'].*?>`)
-			submatchall = re.FindAllStringSubmatch(linea, -1)
-			server_data.Logo = submatchall[len(submatchall)-1][1]
-			break
+			cum++
 		}
+
+		match, _=regexp.MatchString("<meta property=\"og:image\" content=",linea)
+		if match && cum == 1{
+			re := regexp.MustCompile(`<meta property="og:image" content=[\"'](.+?)[\"'].*?>`)
+			submatchall := re.FindAllStringSubmatch(linea, -1)
+			cum++
+			server_data.Logo = comp_http(submatchall[len(submatchall)-1][1], domain)
+		}
+
+		match, _=regexp.MatchString("<link .*? href=",linea)
+		if match && (s.Contains(linea, ".png")||s.Contains(linea, ".jpg")) && cum == 1{
+			re := regexp.MustCompile(`<link .*? href=[\"'](.+?)[\"'].*?>`)
+			submatchall := re.FindAllStringSubmatch(linea, -1)
+			cum++
+			if (s.Contains(submatchall[len(submatchall)-1][1], ".png")||s.Contains(submatchall[len(submatchall)-1][1], ".jpg")){
+				server_data.Logo = comp_http(submatchall[len(submatchall)-1][1], domain)
+			}
+		}
+		
+		match, _=regexp.MatchString("<meta .*? content=",linea)
+		if match && cum == 1 && s.Contains(linea, ".png") {
+			re := regexp.MustCompile(`<meta .*? content=[\"'](.+?)[\"'].*?>`)
+			submatchall := re.FindAllStringSubmatch(linea, -1)
+			cum++
+			server_data.Logo = comp_http(submatchall[len(submatchall)-1][1], domain)
+		}
+
+		if cum == 2{break}
 	}	
 }
+
+func comp_http (url string, domain string) string{
+	u := ""
+	if !s.Contains(url, "https://"){u = "https://"+domain+url}else{u = url}
+	return u
+}
+
 
 func selector_grade(server_data *Server_data)string{
 
